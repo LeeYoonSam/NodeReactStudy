@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>댓글 연습</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <div class="container" style="padding-top: 100px">
+        <div>
+            <h3>여기는 댓글영역</h3>
+            <ul id="commentArea"></ul>
+        </div>
+
+        <hr />
+
+        <div>
+            <form id="commentForm">
+                <input type="text" name="comment" class="form-control" style="width: 200px; float: left; margin-right:30px;">
+                <!-- button으로 한 이유는 엔터를 치면 바로 form 전송이 됨 -->
+                <button class="btn btn-primary">댓글작성하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#commentForm').submit(function() {
+                
+                // 댓글 input 영역의 값에 접근
+                var commentInput = $('#commentForm input[name=comment]');
+
+                // 유효성 체크
+                if(!commentInput.val()) {
+                    alert('댓글을 작성해주세요');
+                    commentInput.focus();
+
+                    return false;
+                }
+
+                // 댓글 영역의 ul 태그안에 댓글 내용을 추가시키기
+                $('#commentArea').append('<li>' + commentInput.val() + '</li>');
+
+                // input box 초기화
+                commentInput.val('');
+
+                // 중간에 폼이 전송이 되지 않게 하기위해 false 처리
+                return false;
+            });
+        });
+    </script>
+
+</body>
+</html>

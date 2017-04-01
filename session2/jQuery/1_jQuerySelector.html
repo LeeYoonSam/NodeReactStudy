@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Selector</title>
+
+    <style type="text/css">
+        .color_blue { color: blue; }
+    </style>
+</head>
+<body>
+
+    <div id="clickDiv" class="clickClass">
+        클릭 이벤트 1
+    </div>
+
+    <div id="clickTwo">
+        클릭 이벤트 2
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // 클래스를 추가하고 css 변경
+            $('#clickDiv, #clickTwo').click(function() {
+                // css 변경
+                // $(this).addClass('color_blue');
+
+                // toggle로 변경
+                $(this).toggleClass('color_blue');
+            });
+
+            // // id(#)로 클릭 이벤트 할당, ','로 여러개 지정가능
+            // $('#clickDiv, #clickTwo').click(function() {
+            //     alert('clickDiv & clickTwo id click!!');
+
+            //     // css 변경
+            //     $(this).css('color', 'red');
+            // });
+
+            // // id(#)로 클릭 이벤트 할당
+            // $('#clickDiv').click(function() {
+            //     alert('clickDiv id click!!');
+            // });
+
+
+            // // class(.)로 클릭 이벤트 할당
+            // $('.clickClass').click(function() {
+            //     alert('clickDiv class click!!');
+            // });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var a = {
+            numberVal: 111,
+            stringVal: "hi",
+            arrayList: [1,2,3],
+            Speack: function() {
+                console.log(this.numberVal);
+            }
+        }
+
+        console.log(a);
+
+        console.log(a.numberVal);
+        console.log(a.stringVal);
+        console.log(a.arrayList);
+        console.log(a.Speack);
+
+        for(var property in a) {
+            console.log(property + "/ " + a[property] );
+        }
+
+    </script>
+</body>
+</html>

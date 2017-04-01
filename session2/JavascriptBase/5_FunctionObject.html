@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function test(name, title) {
+            this.name = name;
+            this.title = title;
+
+            // 외부에서 접근 불가
+            var private = "private variable";
+            
+            // 외부에서 접근 가능
+            this.privatePrint = private;
+        }
+
+        var myTest = new test("park", "jjjj");
+        console.log(myTest.name);
+        console.log(myTest.title);
+
+        // private error test
+        console.log(myTest.private);
+
+        // 외부에서 접근 가능
+        console.log(myTest.privatePrint);
+
+    </script>
+</body>
+</html>

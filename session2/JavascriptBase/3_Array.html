@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var test = ["첫번째", "두번째", "세번째", "네번째"];
+        
+        console.log("첫번째 방법");
+
+        for(var i = 0; i < test.length; i ++) {
+            console.log(test[i]);
+        }
+
+        console.log("두번째 방법");
+        for(var key in test) {
+            console.log(test[key]);
+        }
+
+        console.log("세번째 방법");
+        test.forEach(function(value) {
+            console.log(value);
+        });
+
+    </script>
+</body>
+</html>

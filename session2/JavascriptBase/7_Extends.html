@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        // 예전 코드 - 한계가 있음 (ECMAScript5에서 Object.create()제안 IE9부터 사용가능)
+        function Car() {
+            this.name = "super name";
+            this.showName = function() {
+                console.log(this.name + " is print");
+            }
+        }
+
+        function Taxi() {
+            var _super = new Car();
+            _super.name = "taxi name";
+            return _super;
+        }
+
+        var myTaxi = new Taxi();
+        myTaxi.showName();
+    </script>
+</body>
+</html>
