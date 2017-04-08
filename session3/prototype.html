@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>프로토타입</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // prototype과 function은 서로가 서로를 참조하고 있다. 
+
+        function Car() {
+            this.price = 100;
+        }
+
+        var subCar1 = new Car();
+        var subCar2 = new Car();
+
+        Car.prototype.color = "red";
+        
+        console.log(subCar1.color);
+        console.log(subCar2.color);
+
+        Car.prototype.color = "blue";
+        
+        console.log(subCar1.color);
+        console.log(subCar2.color);
+
+    </script>
+</body>
+</html>

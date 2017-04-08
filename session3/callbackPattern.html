@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>콜백 패턴</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // 콜백 테스트
+        function test (name, title, callback) {
+            this.name = name;
+            this.title = title;
+            callback();
+        }
+
+        console.log('call test');
+        test("이름", "제목", function() {
+            console.log('콜백 실행');
+        }); // 익명함수로 호출함
+
+
+
+        // 변수를 콜백으로 넘김
+        function test2 (name, title, callback) {
+            this.name = name;
+            this.title = title;
+            callback(name);
+        }
+
+        console.log('call test2');
+        test2("이름", "제목", function(firstArg) {
+            console.log(firstArg);
+        }); // 익명함수로 호출함
+
+
+
+        // 정해지지 않은 인수를 받을때 'arguments'
+        // 변수를 콜백으로 넘김
+        function test3 (name, title, callback) {
+            this.name = name;
+            this.title = title;
+            callback(1,2,3,4,5,6,7);
+        }
+
+        console.log('call test3');
+        test3("이름", "제목", function() {
+            for(var i = 0; i < arguments.length; i++) {
+                console.log(arguments[i]);
+            }
+        }); // 익명함수로 호출함
+
+
+
+        // 익명함수가 아닌 일반함수 호출 테스트
+        function test4 (name, title, callback) {
+            this.name = name;
+            this.title = title;
+            callback(1,2,3,4,5,6,7);
+        }
+
+        function OutCallback() {
+            for(var i = 0; i < arguments.length; i++) {
+                console.log(arguments[i]);
+            }
+        }
+
+        console.log('call test4');
+        test4("이름", "제목", OutCallback); // 일반 함수 호출
+
+    </script>
+</body>
+</html>

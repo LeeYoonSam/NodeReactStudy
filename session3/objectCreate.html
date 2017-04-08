@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>프로토타입 연습</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function Car() {
+            this.name = "Hyundai";
+            this.color = "red";
+        }
+
+        Car.prototype.move = function() {
+            console.log("my Car is " + this.name);
+            console.log("my Color is " + this.color);
+        }
+        // 프로토타입은 변수를 포함하지 않는다.
+        var subCar = Object.create(Car.prototype);
+        console.log("call Object.create()");
+        subCar.move();  // undefined
+
+        // Object.create시 파라미터로 변수를 적용함
+        var subCar2 = Object.create(Car.prototype, {
+            name: {
+                value: "KIA",
+                writable: true, // 쓰기가능하게 변경 default는 false
+            },
+            color: {
+                value: "blue",
+                writable: true,
+            }
+        });
+
+        console.log("call Object.create(prototype, {parameter})");
+        subCar2.move();
+
+        console.log("call function.call");
+        // call을 사용해서 기본으로 들어있는 변수가 적용되어짐
+        Car.call(subCar);
+        subCar.move();
+
+    </script>
+</body>
+</html>

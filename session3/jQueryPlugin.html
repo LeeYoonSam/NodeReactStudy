@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 플러그인 만들기</title>
+</head>
+<body>
+    
+    <div id="clickDiv">
+        글자색 변환
+    </div>
+
+    <div id="clickDiv2">
+        글자색 변환2
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+
+    <!-- 직접만든 jquery 라이브러리를 사용하기 -->
+    <script type="text/javascript" src="./jquery-changeColor.js"></script>
+    <script type="text/javascript">
+        (function() {
+            $.fn.changeColor = function() {
+                $(this).css('color', 'blue');
+                console.log(this);
+            };
+
+            $.fn.changeColor2 = function() {
+                this.each(function() {
+                    var $dom = $(this);
+
+                    $dom.click(function() {
+                        $dom.css("color", "red");    
+                    });
+                });
+            };
+
+            $(document).ready(function() {
+                // $('#clickDiv, #abc, .test').changeColor();
+                // $('#clickDiv, #clickDiv2, .test').changeColor2();
+
+                // 직접만든 jquery 라이브러리를 사용하기
+                $('#clickDiv, #clickDiv2, .test').libChangeColor();
+            });
+        }) ();
+    </script>
+
+</body>
+</html>

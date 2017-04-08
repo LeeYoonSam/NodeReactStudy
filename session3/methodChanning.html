@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메서드 체이닝</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var account = {
+            id: "",
+            password: "",
+
+            setId: function(userID) {
+                this.id = userID;
+                return this;
+            },
+
+            setPassword: function(userPassword) {
+                this.password = userPassword;
+                return this;
+            },
+
+            print: function() {
+                console.log("id: " + this.id);
+                console.log("password: " + this.password);
+            }
+        }
+
+        account.setId('albert').setPassword('1234');
+        account.print();
+    </script>
+</body>
+</html>

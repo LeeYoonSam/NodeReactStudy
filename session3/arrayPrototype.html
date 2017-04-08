@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array 프로토타입 추가</title>
+</head>
+<body>
+    <script type="text/javascript">
+        Array.prototype.arraySearchRemove = function($search) {
+            var index = this.indexOf($search);  
+            if (index !== -1) {
+                this.splice(index, 1);
+            }
+        }
+
+        var test = [ "첫번째", "두번째"  ];
+        test.arraySearchRemove("첫번째");
+        
+        console.log(test);
+    </script>
+</body>
+</html>
