@@ -5,6 +5,31 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+var autoIncrement = require('mongoose-auto-increment');
+
+
+
+// === 몽고디비 관련 세팅 시작 ===
+// 몽구스 연결 상태 로그(없어도 상관없음)
+var db = mongoose.connection;
+db.on('error', console.error);
+db.on('open', function() {
+    console.log("MongoDB Connect");
+});
+// 몽구스 연결 상태 로그
+
+// 몽고디비 연결
+var connect = mongoose.connect('mongodb://127.0.0.1:27017/exercise');
+
+// autoIncrement 초기화
+autoIncrement.initialize(connect);
+// === 몽고디비 관련 세팅 끝 ===
+
+
+
+// === 라우트 관련 세팅 ===
 var index = require('./routes/index');
 var users = require('./routes/users');
 // Router 추가
@@ -24,6 +49,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// === 라우트 세팅 ===
 app.use('/', index);
 app.use('/users', users);
 // Router 추가
