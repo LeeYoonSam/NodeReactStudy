@@ -34,6 +34,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 // Router 추가
 var posts = require('./routes/posts');
+var contacts = require('./routes/contacts');
 
 var app = express();
 
@@ -49,11 +50,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// multer로 이미지 업로드에 사용할 폴더 정의
+app.use('/uploads', express.static('uploads'));
+
 // === 라우트 세팅 ===
 app.use('/', index);
 app.use('/users', users);
 // Router 추가
 app.use('/posts', posts);
+app.use('/contacts', contacts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

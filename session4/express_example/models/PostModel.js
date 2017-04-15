@@ -3,8 +3,13 @@ var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 
 var PostSchema = new Schema({
-    title: String,
+
+    title: {
+        type: String,
+        required: [true, '제목은 입력해주세요']  // validation 처리
+    },
     content: String,
+    thumbnail: String,
     created_at: {
         type: Date,
         default: Date.now()
