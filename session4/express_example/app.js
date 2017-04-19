@@ -5,6 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// flash 메시지 관련
+var flash = require('connect-flash');
+
+// passport 로그인 관련
+var passport = require('passport');
+var session = require('express-session');
+
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var autoIncrement = require('mongoose-auto-increment');
@@ -34,7 +41,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 // Router 추가
 var posts = require('./routes/posts');
-var contacts = require('./routes/contacts');
+var accounts = require('./routes/accounts');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -53,12 +61,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 // multer로 이미지 업로드에 사용할 폴더 정의
 app.use('/uploads', express.static('uploads'));
 
+//=== 꼭 라우팅 위에 선언해야함 ===
+//session 관련 셋팅
+app.use(session({
+    secret: 'fastcampus',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 2000 * 60 * 60 //지속시간 2시간
+    }
+}));
+
+//passport 적용
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// 플래시 메시지 관련
+app.use(flash());
+//=== 꼭 라우팅 위에 선언해야함 ===
+
+
 // === 라우트 세팅 ===
 app.use('/', index);
 app.use('/users', users);
 // Router 추가
 app.use('/posts', posts);
-app.use('/contacts', contacts);
+app.use('/accounts', accounts);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
