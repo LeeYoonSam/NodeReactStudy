@@ -8,6 +8,8 @@ var UserSchema = new Schema({
         required: [true, '아이디는 필수입니다.']
     },
 
+    displayname: String,
+
     password: {
         type: String,
         required: [true, '패스워드는 필수입니다.']

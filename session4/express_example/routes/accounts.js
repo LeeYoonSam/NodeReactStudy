@@ -7,6 +7,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 // === passport 정책 선언 ===
+// 어떨때 serialize, deserialize가 호출되는지 파악하기
 passport.serializeUser( function(user, done) {
     console.log('serializeUser');
     done(null, user);
@@ -50,7 +51,8 @@ router.get('/join', function(req, res){
 router.post('/join', function(req, res) {
     var User = new UserModel({
         username: req.body.username,
-        password: passwordHash(req.body.password)
+        password: passwordHash(req.body.password),
+        displayname: req.body.displayname
     });
 
     User.save(function(err) {
@@ -68,7 +70,7 @@ router.post('/login' ,
         failureFlash: true 
     }), 
     function(req, res){
-        res.send('<script>alert("로그인 성공");location.href="/accounts/success";</script>');
+        res.send('<script>alert("로그인 성공");location.href="/posts";</script>');
     }
 );
 
