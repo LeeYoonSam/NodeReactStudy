@@ -32,6 +32,11 @@
                         
                         <li><a href="/chat">Chat</a></li>
 
+                        <li><a href="/users">User</a></li>
+                        <% if(isLogin){%>
+                            <li><a href="/profile">내 정보</a></li>
+                        <%}%>
+
                         <% if(isLogin){%>
                             <li><a href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')">LOGOUT</a></li>
                         <%}else{%>

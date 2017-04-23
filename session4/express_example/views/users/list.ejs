@@ -1,0 +1,37 @@
+<% include ../header.ejs %>
+
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td>사용자 이름</td>
+            <td>전화번호</td>
+            <td>가입일</td>
+            <td>성별</td>
+        </tr>
+
+        <% users.forEach( function(user) { %>
+        
+            <tr>
+                <td>
+                    <a href="/users/<%=user.id%>">
+                        <%=user.displayname%>    
+                    </a>
+                </td>
+                <td>
+                    개발중
+                </td>
+                <td>
+                    <%=user.getDate.year%>년
+                    <%=user.getDate.month%>월
+                    <%=user.getDate.day%>일
+                </td>
+
+                <td>
+                    개발중
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <a href="/" class="btn btn-default">처음으로</a>
+
+<% include ../footer.ejs %>

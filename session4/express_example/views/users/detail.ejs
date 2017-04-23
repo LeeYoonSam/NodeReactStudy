@@ -1,0 +1,40 @@
+<% include ../header.ejs %>
+   
+        <table class="table table-bordered">
+            
+            <tr>
+                <td class="info">사용자 이름</td>
+                <td>
+                    <!-- <input type="text" name="username" class="form-control"
+                    value="<%=user.displayname%>"/> -->
+                    <%=user.displayname%>
+                </td>
+            </tr>
+            <tr>
+                <td class="info">전화번호</td>
+                <td>
+                    <!-- <input type="text" name="phone" class="form-control"
+                    value="<%=user.phone%>"> -->
+                    <%=user.phone%>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="info">가입일</th>
+                <td>
+                    <%=user.getDate.year%>년
+                    <%=user.getDate.month%>월
+                    <%=user.getDate.day%>일
+                </td>
+            </tr>
+
+            <tr>
+                <th class="info">성별</th>
+                <td>
+                    개발중
+                </td>
+            </tr>
+        </table>
+    
+
+<% include ../footer.ejs %>

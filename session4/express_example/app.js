@@ -44,6 +44,7 @@ var posts = require('./routes/posts');
 var accounts = require('./routes/accounts');
 var auth = require('./routes/auth');
 var chat = require('./routes/chat');
+var profile = require('./routes/profile');
 
 var app = express();
 
@@ -85,7 +86,7 @@ app.use(flash());
 app.use(function(req, res, next) {
   app.locals.isLogin = req.isAuthenticated();
   // app.locals.urlparameter = req.url; // 현재 URL 정보를 보내고 싶으면 이와같이 세팅
-  // app.locals.userData = req.user; // 사용자 정보를 보내고 싶으면 이와 같이 세팅
+  app.locals.userData = req.user; // 사용자 정보를 보내고 싶으면 이와 같이 세팅
   next();
 });
 
@@ -100,6 +101,7 @@ app.use('/posts', posts);
 app.use('/accounts', accounts);
 app.use('/auth', auth);
 app.use('/chat', chat);
+app.use('/profile', profile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

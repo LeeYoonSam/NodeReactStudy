@@ -9,6 +9,7 @@ var UserSchema = new Schema({
     },
 
     displayname: String,
+    phone: String,
 
     password: {
         type: String,
@@ -19,6 +20,15 @@ var UserSchema = new Schema({
         type: Date,
         default: Date.now()
     }
+});
+
+UserSchema.virtual('getDate').get( function() {
+    var date = new Date(this.create_at);
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()
+    };
 });
 
 UserSchema.plugin(autoIncrement.plugin,

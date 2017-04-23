@@ -1,0 +1,38 @@
+<% include ../header.ejs %>
+    <form action="" method="post" enctype="multipart/form-data">
+        <table class="table table-bordered">
+            
+            <tr>
+                <td class="info">사용자 이름</td>
+                <td>
+                    <%=user.displayname%>
+                </td>
+            </tr>
+            <tr>
+                <td class="info">전화번호</td>
+                <td>
+                    <%=user.phone%>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="info">가입일</th>
+                <td>
+                    <%=user.getDate.year%>년
+                    <%=user.getDate.month%>월
+                    <%=user.getDate.day%>일 변경불가!
+                </td>
+            </tr>
+
+            <tr>
+                <th class="info">성별</th>
+                <td>
+                    개발중
+                </td>
+            </tr>
+        </table>
+
+        <a href="/profile/edit" class="btn btn-default">수정하기</a>
+    </form>
+
+<% include ../footer.ejs %>
