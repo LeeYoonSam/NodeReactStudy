@@ -64,14 +64,26 @@ app.use('/uploads', express.static('uploads'));
 
 //=== 미들웨어는 꼭 라우팅 위에 선언해야함 ===
 //session 관련 셋팅
-app.use(session({
+// 미들웨어로 변경
+var sessionMiddleWare = session({
     secret: 'fastcampus',
     resave: false,
     saveUninitialized: true,
     cookie: {
       maxAge: 2000 * 60 * 60 //지속시간 2시간
     }
-}));
+});
+
+app.use(sessionMiddleWare);
+
+// app.use(session({
+//     secret: 'fastcampus',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       maxAge: 2000 * 60 * 60 //지속시간 2시간
+//     }
+// }));
 
 //passport 적용
 app.use(passport.initialize());
@@ -122,17 +134,11 @@ app.use(function(err, req, res, next) {
 //socket io 셋팅
 app.io = require('socket.io')();
 
-app.io.on('connection', function(socket) {
-  console.log('socketio connected...');
-
-  // socket.on('chat message', function(data) {
-  //   console.log(data);
-  //   app.io.emit('fromClient', "클라이언트 전송");
-  // });
-
-  socket.on('chat message', function(data){
-    app.io.emit('toClient', data.message);
-  }) 
+app.io.use(function(socket, next) {
+  sessionMiddleWare(socket.request, socket.request.res, next);
 });
+
+// 소켓 커넥션 미들웨어 사용하도록 수정
+require('./libs/socketConnection')(app.io);
 
 module.exports = app;

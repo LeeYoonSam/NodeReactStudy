@@ -1,0 +1,62 @@
+<AWS 배포>
+
+무료계정 생성 - 클라우 1코어, 램 1기가 제공
+
+(서비스 - EC2)
+key pair 생성해서 다운로드 - 서버 접속시 필요
+
+router instance
+
+aws 폴더 생성 / pem 넣어줌
+
+chmod 700 keypair.pem
+
+(AWS status 에서 해당 서버의 public DNS를 가져옴)
+
+==== ssh 작업 ===
+
+ssh -i nodejscamp.pem ubuntu@DNS
+
+sudo apt-get installcurl -sL [Node다운로드 URL]
+
+sudo apt-get nodejs 설치
+
+npm -v, node -v (버전확인)
+
+sudo npm install npm패키지 설치
+
+(npm list확인)
+npm list -g --depth=0
+
+
+sudo chown ubuntu:ubuntu myproject
+npm install
+
+==== ssh 작업 ===
+
+* 포트를 열때마다 웹에서 inbound 추가해서 열어줘야함
+
+(이렇게 하면 서버 활성화 완료)
+
+몽고디비 관련 관리키 설치 우분투에 맞게 16.04 버전(aws에서 몽고디비 설치방법 지원)
+
+
+<pm2>
+sudo npm install -g pm2
+pm2 start bin/www
+pm2 list
+pm2 stop 0
+
+(exit로 종료해도 서버가 살아있음)
+
+
+<nginx>
+sudo vi etc/apt/sources.list (nginx 다운로드 받을곳을 지정)
+sudo apt-get install nginx
+
+sudo service nginx start (nginx 시작)
+
+cd etc/nginx
+default/conf (수정)
+#location 부분 변경
+proxy_pass http://127.0.0.1:3000

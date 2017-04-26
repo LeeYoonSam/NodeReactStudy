@@ -6,6 +6,7 @@ var PostModel = require('../models/PostModel');
 var CommentModel = require('../models/CommentModel');
 
 var loginRequired = require('../libs/loginRequired');
+var co = require('co');
 
 // csrf 셋팅 (토큰을 생성해서 유효한지 체크 - 토큰이 파라미터로 넘오지않으면 에러 발생! (input type hidden으로 토큰을 생성))
  var csrf = require('csurf');
@@ -34,7 +35,7 @@ var upload = multer({ storage: storage });
 
 // === POST 관련 ===
 // 템플릿(views 폴더) 지정 render()사용
-router.get('/', function(req, res){
+router.get('/', (req, res) => {
     PostModel.find( {}, function(err, posts) {
         res.render('posts/list', { posts: posts });
     });
@@ -77,14 +78,34 @@ router.post('/write', loginRequired, upload.single('thumbnail'), csrfProtection,
 });
 
 router.get('/detail/:id', loginRequired, csrfProtection, function(req, res) {
-    PostModel.findOne( { id: req.params.id }, function(error, post) {
-        // 코멘트 부분 같이 가져오기 위해 수정
-        CommentModel.find( { post_id: req.params.id }, function(err, comments) {
-            res.render('posts/detail', { post: post, comments: comments, csrfToken: req.csrfToken()});
-        });
+    // co 사용 - generator 적용 해봄
+    var getPost = co(function* () {
+        var post = yield PostModel.findOne( {'id': req.params.id} ).exec();
+        var comments = yield CommentModel.find( {'post_id': req.params.id} ).exec();
 
-        // res.render('posts/detail', { post });
+        return {
+            post: post,
+            comments: comments
+        };
     });
+
+    getPost.then(result => {
+        res.render('posts/detail',
+        {
+            post: result.post,
+            comments: result.comments,
+            csrfToken: req.csrfToken() 
+        });
+    });
+
+    // PostModel.findOne( { id: req.params.id }, function(error, post) {
+    //     // 코멘트 부분 같이 가져오기 위해 수정
+    //     CommentModel.find( { post_id: req.params.id }, function(err, comments) {
+    //         res.render('posts/detail', { post: post, comments: comments, csrfToken: req.csrfToken()});
+    //     });
+
+    //     // res.render('posts/detail', { post });
+    // });
 });
 
 router.post( '/ajax_comment/insert', csrfProtection, function(req, res) {
