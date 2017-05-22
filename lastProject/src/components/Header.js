@@ -2,9 +2,51 @@ import React, { Component } from 'react';
 import { Navbar , Nav , NavItem , MenuItem ,NavDropdown} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import axios from 'axios';
 
 class Header extends Component {
+
+    constructor() {
+        super();
+        this.state = { 
+            isLogin : false
+        };
+    }
+    
+    componentDidMount() {
+        axios.get('/v1/accounts/status', {
+        }).then( (res) => {
+            this.setState({
+                isLogin: res.data.isLogin
+            });
+        }).catch( (error) => {
+            console.log(error);
+        });
+    }
+
     render() {
+        const Login = () => {
+            return (
+                <LinkContainer to="/accounts/login">
+                    <NavItem>LOGIN</NavItem>
+                </LinkContainer>
+            );
+        };
+        const Join = () => {
+            return (
+                <LinkContainer to="/accounts/join">
+                    <NavItem>JOIN</NavItem>
+                </LinkContainer>
+            );
+        };
+        const Logout = () => {
+            return (
+                <li>
+                    <a href="/v1/accounts/logout">LOGOUT</a>
+                </li>
+            );
+        };
+
         return (
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
@@ -23,17 +65,15 @@ class Header extends Component {
                             <NavItem>Posts</NavItem>
                         </LinkContainer>
 
-                        <LinkContainer to="/accounts/join">
-                            <NavItem>Join</NavItem>
-                        </LinkContainer>
+                        <li><a href="/chat">Chat</a></li>
 
-                        <LinkContainer to="/accounts/login">
-                            <NavItem>Login</NavItem>
-                        </LinkContainer>
+                        {
+                            this.state.isLogin ?
+                                <Logout /> : <Join />
+                        }
+                        
+                        { this.state.isLogin ? "" : <Login /> }
 
-                        <LinkContainer to="/chat">
-                            <NavItem>Chat</NavItem>
-                        </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

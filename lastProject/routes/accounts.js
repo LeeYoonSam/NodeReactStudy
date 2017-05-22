@@ -89,4 +89,9 @@ router.get('/logout', function(req, res){
 });
 
 
+router.get('/status', (req, res) => {
+    res.json({ isLogin: req.isAuthenticated() });
+});
+
+
 module.exports = router;

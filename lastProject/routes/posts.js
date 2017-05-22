@@ -45,13 +45,16 @@ router.post('/write', loginRequired , upload.single('thumbnail') , function(req,
         title : req.body.title,
         content : req.body.content,
         thumbnail : (req.file) ? req.file.filename : "",
+        username: req.user.username,
     });
+
     var validationError = post.validateSync();
-    if(validationError){
+    if(validationError) {
         res.send(validationError);
-    }else{
+    } else {
         post.save(function(err){
-            res.redirect('/posts');
+            // res.redirect('/posts');
+            res.json({message: "success"});
         });
     }
 });

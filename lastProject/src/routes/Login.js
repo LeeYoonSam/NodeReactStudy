@@ -40,6 +40,9 @@ class Login extends Component {
         }).then( (res) => {
             if(res.data.message==="success"){
                 alert('로그인이 성공하였습니다.');
+                document.location.href = "/posts";
+            } else {
+                alert(res.data.message);
             }
         }).catch( (error) => {
             console.log(error);

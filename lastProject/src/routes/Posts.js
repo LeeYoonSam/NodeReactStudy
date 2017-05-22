@@ -12,6 +12,8 @@ class Posts extends Component {
         this.state = {
             posts : []
         };
+
+        this.removePost = this.removePost.bind(this);
     }
 
     componentDidMount() {
@@ -25,6 +27,16 @@ class Posts extends Component {
         }).catch( (error) => {
             console.log(error);
         });
+    }
+
+    removePost(event) {
+        // href 태그로 바로 넘어가지 않음 / 다음이벤트 블럭
+        event.preventDefault();
+
+        let url = event.target.href;
+        if(confirm('삭제하시겠습니까?')) {
+            document.location.href = url;
+        }
     }
 
     render() {
@@ -51,13 +63,19 @@ class Posts extends Component {
                                         </Link>
                                     </td>
                                     <td>{`${created_at.year}-${created_at.month}-${created_at.date}`}</td>
-                                    <td></td>    
+                                    <td>
+                                        <a href={`/v1/posts/delete/${post.id}`}
+                                            className="btn btn-danger"
+                                            onClick={ this.removePost }>삭제</a>
+                                    </td>    
                                 </tr>
                             )
                         })}
                     </tbody>
-
                 </table>
+
+                <Link to="/write" className="btn btn-primary">글작성하기</Link>
+                
                 {/* 서브 라우팅 */}
                 <Route path='/posts/:id' component={PostDetail} />
             </div>

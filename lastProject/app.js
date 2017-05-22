@@ -85,7 +85,7 @@ app.use('/v1/users', users);
 app.use('/v1/posts', posts);
 app.use('/v1/accounts', accounts);
 app.use('/v1/auth', auth);
-app.use('/v1/chat', chat);
+app.use('/chat', chat);
 
 // 요청한 라우트가 존재하지 않으면 index.html로 보내줌
 app.get('*', function(req,res){
